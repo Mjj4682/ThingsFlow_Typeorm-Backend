@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { User } from "./entities/User";
 import { Weather } from "./entities/Weather";
-import { Post } from "./entities/Post";
+import { Posts } from "./entities/Posts";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -13,7 +13,7 @@ const database = new DataSource({
   username: process.env.TYPEORM_USERNAME,
   password: process.env.TYPEORM_PASSWORD,
   database: process.env.TYPEORM_DATABASE,
-  entities: [User, Weather, Post],
+  entities: [User, Weather, Posts],
   logging: false,
 });
 

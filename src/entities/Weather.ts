@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Post } from "./Post";
+import { Posts } from "./Posts";
 
 @Entity()
 export class Weather {
@@ -9,6 +9,6 @@ export class Weather {
   @Column()
   name: string;
 
-  @OneToMany(() => Post, (post) => post.weather)
-  posts: Post[];
+  @OneToMany(() => Posts, (posts) => posts.weather)
+  posts: Posts[];
 }
