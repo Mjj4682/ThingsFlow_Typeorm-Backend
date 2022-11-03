@@ -5,4 +5,6 @@ const router: Router = express.Router();
 
 router.post("/", postController.createPosts);
 
+router.patch("/:postsId", postController.updatePosts);
+
 export default router;
