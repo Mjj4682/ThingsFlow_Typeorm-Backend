@@ -25,7 +25,8 @@ const createPosts = asyncHandler(async (req, res) => {
 });
 
 const updatePosts = asyncHandler(async (req, res) => {
-  const { postsId, title, content, password } = req.body;
+  const postsId = Number(req.params.postsId);
+  const { title, content, password } = req.body;
   if ((!title && !content) || !postsId || !password) {
     throw new errorConstructor(400, "필수값이 없습니다.");
   }
@@ -33,4 +34,14 @@ const updatePosts = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "updated posts" });
 });
 
-export = { createPosts, updatePosts };
+const deletePosts = asyncHandler(async (req, res) => {
+  const postsId = Number(req.params.postsId);
+  const { password } = req.body;
+  if (!postsId || !password) {
+    throw new errorConstructor(400, "필수값이 없습니다.");
+  }
+  await postsService.deletePosts(postsId, password);
+  res.status(204).json({});
+});
+
+export = { createPosts, updatePosts, deletePosts };
