@@ -50,4 +50,17 @@ const updatePosts = async (
   await postsRepository.save(postsUpdate);
 };
 
-export = { createPosts, updatePosts };
+const deletePosts = async (postsId: number, password: string) => {
+  const postsRepository = database.getRepository(Posts);
+  const postsDelete = await postsRepository.findOneBy({ id: postsId });
+  if (!postsDelete) {
+    throw new errorConstructor(400, "틀린 게시물 아이디입니다.");
+  }
+  const checkPassword = await bcrypt.compare(password, postsDelete.password);
+  if (!checkPassword) {
+    throw new errorConstructor(400, "틀린 비밀번호입니다.");
+  }
+  await postsRepository.softDelete({ id: postsId });
+};
+
+export = { createPosts, updatePosts, deletePosts };
