@@ -6,12 +6,13 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import { User } from "./User";
 import { Weather } from "./Weather";
 
 @Entity()
-export class Post {
+export class Posts {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -29,9 +30,11 @@ export class Post {
   password: string;
 
   @ManyToOne(() => User, (user) => user.posts)
+  @JoinColumn()
   user: User;
 
   @ManyToOne(() => Weather, (weather) => weather.posts)
+  @JoinColumn()
   weather: Weather;
 
   @CreateDateColumn()
