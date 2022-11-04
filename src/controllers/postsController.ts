@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import { errorConstructor } from "../middlewares/errorConstructor";
-import postsService from "../services/postsService";
+import * as postsService from "../services/postsService";
 
 const createPosts = asyncHandler(async (req, res) => {
   const { title, content, password, userId } = req.body;
@@ -50,4 +50,4 @@ const getPostsList = asyncHandler(async (req, res) => {
   res.status(200).json({ postsList });
 });
 
-export = { createPosts, updatePosts, deletePosts, getPostsList };
+export { createPosts, updatePosts, deletePosts, getPostsList };
