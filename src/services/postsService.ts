@@ -3,6 +3,7 @@ import database from "../dataSource";
 import { errorConstructor } from "../middlewares/errorConstructor";
 import { Posts } from "../entities/Posts";
 import { User } from "../entities/User";
+import { Weather } from "../entities/Weather";
 
 const createPosts = async (
   title: string,
@@ -10,6 +11,36 @@ const createPosts = async (
   password: string,
   userId: number
 ) => {
+  const userRepository = database.getRepository(User);
+  const checkUserId = await userRepository.findOneBy({ id: userId });
+  if (!checkUserId) {
+    throw new errorConstructor(400, "없는 회원 아이디입니다.");
+  }
+
+  let currentWeather = "";
+  await fetch(
+    "http://api.weatherapi.com/v1/current.json?key=4f34e2f96ec3431d9c712603220311&q=Korea&aqi=no"
+  )
+    .then((response) => response.json())
+    .then((data) => (currentWeather = data.current.condition.text));
+  const weatherRepository = database.getRepository(Weather);
+  const checkWeather = await weatherRepository.findOneBy({
+    name: currentWeather,
+  });
+  const weather = new Weather();
+  if (!checkWeather) {
+    weather.name = currentWeather;
+    await database.manager.save(weather);
+  }
+  const getWeather = await weatherRepository.findOneBy({
+    name: currentWeather,
+  });
+  const weatherId = getWeather?.id;
+  if (!weatherId) {
+    throw new errorConstructor(400, "잘못된 접근입니다.");
+  }
+  weather.id = weatherId;
+
   const saltRound = 8;
   const salt = await bcrypt.genSalt(saltRound);
   const hashedPassword = await bcrypt.hash(password, salt);
@@ -21,6 +52,7 @@ const createPosts = async (
   posts.content = content;
   posts.password = hashedPassword;
   posts.user = user;
+  posts.weather = weather;
   await database.manager.save(posts);
 };
 
