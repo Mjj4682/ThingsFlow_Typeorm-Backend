@@ -9,4 +9,6 @@ router.patch("/:postsId", postController.updatePosts);
 
 router.delete("/:postsId", postController.deletePosts);
 
+router.get("/?", postController.getPostsList);
+
 export default router;
