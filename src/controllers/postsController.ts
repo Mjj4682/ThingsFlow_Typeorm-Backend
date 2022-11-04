@@ -44,4 +44,10 @@ const deletePosts = asyncHandler(async (req, res) => {
   res.status(204).json({});
 });
 
-export = { createPosts, updatePosts, deletePosts };
+const getPostsList = asyncHandler(async (req, res) => {
+  const pageNo = Number(req.query.page);
+  const postsList = await postsService.getPostsList(pageNo);
+  res.status(200).json({ postsList });
+});
+
+export = { createPosts, updatePosts, deletePosts, getPostsList };

@@ -95,4 +95,24 @@ const deletePosts = async (postsId: number, password: string) => {
   await postsRepository.softDelete({ id: postsId });
 };
 
-export = { createPosts, updatePosts, deletePosts };
+const getPostsList = async (pageNo: number) => {
+  const postsRepository = database.getRepository(Posts);
+  if (!pageNo) {
+    const allPostsList = await postsRepository.find({
+      relations: ["user", "weather"],
+      order: { id: "DESC" },
+    });
+    return allPostsList;
+  }
+  const limit = 20;
+  const skip = pageNo * limit - limit;
+  const postsList = await postsRepository.find({
+    relations: ["user", "weather"],
+    order: { id: "DESC" },
+    take: limit,
+    skip,
+  });
+  return postsList;
+};
+
+export = { createPosts, updatePosts, deletePosts, getPostsList };
