@@ -1,5 +1,5 @@
 import createApp from "./app";
-import database from "./dataSource";
+import { database } from "./dataSource";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -11,7 +11,7 @@ const startServer = async () => {
     .then(() => {
       console.log("Data Source has been initialized!");
     })
-    .catch((err) => {
+    .catch((err: string) => {
       console.error("Error during Data Source initialization", err);
       database.destroy();
     });

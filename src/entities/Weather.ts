@@ -6,7 +6,7 @@ export class Weather {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column("text", { nullable: true })
   name: string;
 
   @OneToMany(() => Posts, (posts) => posts.weather)

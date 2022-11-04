@@ -16,17 +16,17 @@ export class Posts {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
-    length: 20,
+  @Column("text", {
+    nullable: true,
   })
   title: string;
 
-  @Column({
-    length: 200,
+  @Column("text", {
+    nullable: true,
   })
   content: string;
 
-  @Column()
+  @Column("text", { nullable: true })
   password: string;
 
   @ManyToOne(() => User, (user) => user.posts)

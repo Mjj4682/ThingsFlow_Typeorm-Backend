@@ -17,4 +17,15 @@ const database = new DataSource({
   logging: false,
 });
 
-export default database;
+const testDatabase = new DataSource({
+  type: "mysql",
+  host: process.env.TYPEORM_HOST,
+  port: process.env.TYPEORM_PORT as unknown as number,
+  username: process.env.TYPEORM_USERNAME,
+  password: process.env.TYPEORM_PASSWORD,
+  database: `${process.env.TYPEORM_DATABASE}test`,
+  entities: [User, Weather, Posts],
+  logging: false,
+});
+
+export { database, testDatabase };

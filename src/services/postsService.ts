@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import database from "../dataSource";
+import { database } from "../dataSource";
 import { errorConstructor } from "../middlewares/errorConstructor";
 import { Posts } from "../entities/Posts";
 import { User } from "../entities/User";
@@ -99,6 +99,13 @@ const getPostsList = async (pageNo: number) => {
   const postsRepository = database.getRepository(Posts);
   if (!pageNo) {
     const allPostsList = await postsRepository.find({
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        created_at: true,
+        updated_at: true,
+      },
       relations: ["user", "weather"],
       order: { id: "DESC" },
     });
@@ -107,6 +114,13 @@ const getPostsList = async (pageNo: number) => {
   const limit = 20;
   const skip = pageNo * limit - limit;
   const postsList = await postsRepository.find({
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      created_at: true,
+      updated_at: true,
+    },
     relations: ["user", "weather"],
     order: { id: "DESC" },
     take: limit,
@@ -115,4 +129,4 @@ const getPostsList = async (pageNo: number) => {
   return postsList;
 };
 
-export = { createPosts, updatePosts, deletePosts, getPostsList };
+export { createPosts, updatePosts, deletePosts, getPostsList };

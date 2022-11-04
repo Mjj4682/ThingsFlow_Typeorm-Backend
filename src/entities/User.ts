@@ -6,7 +6,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column("text", { nullable: true })
   name: string;
 
   @OneToMany(() => Posts, (posts) => posts.user)
