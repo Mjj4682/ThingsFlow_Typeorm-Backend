@@ -5,12 +5,13 @@
     "allowJs": true,
     "checkJs": true,
     "outDir": "./dist",
-    "rootDir": "src",
+    "rootDir": "/",
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "noEmit": true
   }
 }
