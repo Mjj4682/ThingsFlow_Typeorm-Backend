@@ -115,7 +115,7 @@ Response :
 - 제목과 본문의 글자 수가 넘을 시 에러 구현
 - 정규식을 사용하여 비밀번호가 양식에 맞지 않을 시 에러 구현
 - 외부 날씨 API를 활용하여 현재 날씨를 가져온 후(Sunny, Clean 등) weather 테이블에 없는 날씨이면 추가 후 해당 날씨에 맞는 id를 가져온 다음 posts 테이블에 저장 <br>
-  [구현 과정 블로그](https://velog.io/@jjmoon4682)
+  [구현 과정 블로그](https://velog.io/@jjmoon4682/Typeorm%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-%EB%8F%99%EC%A0%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B6%94%EA%B0%80)
 - bcrypt를 사용하여 비밀번호를 암호한 후 저장
 
 **2. 게시글 수정**
